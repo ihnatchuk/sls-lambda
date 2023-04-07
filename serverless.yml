@@ -1,0 +1,46 @@
+service: sls-node
+frameworkVersion: '3'
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  getTodos:
+    handler: src/handlers/get-todos.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: get
+
+  getTodoById:
+    handler: src/handlers/get-todo.handler
+    events:
+      - httpApi:
+          path: /todos/{todoId}
+          method: get
+
+  updateTodo:
+    handler: src/handlers/update-todo.handler
+    events:
+      - httpApi:
+          path: /todos/{todoId}
+          method: patch
+
+  deleteTodo:
+    handler: src/handlers/delete-todo.handler
+    events:
+      - httpApi:
+          path: /todos/{todoId}
+          method: delete
+
+  createTodos:
+    handler: src/handlers/create-todos.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: post
